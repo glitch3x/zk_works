@@ -106,7 +106,7 @@ export default function CredentialDashboard() {
     
     try {
       const formData = new FormData();
-      formData.append('passportId', passport.data.objectId);
+      formData.append('passportId', passport.data?.objectId || '');
       formData.append('recipient', account.address);
       formData.append('file', file);
       formData.append('tier', pendingCredentials.tier || 'Silver');
