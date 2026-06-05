@@ -13,7 +13,7 @@ export default function PublicProfile({ params }: { params: { address: string } 
   useEffect(() => {
     async function fetchData() {
       try {
-        const client = new SuiJsonRpcClient({ url: getJsonRpcFullnodeUrl('testnet') });
+        const client = new SuiJsonRpcClient({ url: getJsonRpcFullnodeUrl('testnet') } as any);
         
         // Fetch Passport
         const passportRes = await client.getOwnedObjects({

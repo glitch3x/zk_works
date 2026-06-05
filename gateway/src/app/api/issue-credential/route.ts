@@ -52,7 +52,7 @@ export async function POST(req: Request) {
     // 2. Setup Sui Transaction
     console.log("Initializing Agent Sui Client...");
     const keypair = Ed25519Keypair.deriveKeypair(AGENT_MNEMONIC);
-    const client = new SuiClient({ url: getFullnodeUrl('testnet') });
+    const client = new SuiClient({ url: getFullnodeUrl('testnet') } as any);
     
     const tx = new Transaction();
     
