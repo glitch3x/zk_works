@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useCurrentAccount, useSignAndExecuteTransaction, useSuiClientQuery } from '@mysten/dapp-kit';
+import { useCurrentAccount, useSignAndExecuteTransaction, useSuiClientQuery, useDisconnectWallet } from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
 import { PACKAGE_ID } from '@/lib/constants';
 import { Toaster, toast } from 'react-hot-toast';
@@ -9,6 +9,7 @@ import { Toaster, toast } from 'react-hot-toast';
 export default function CredentialDashboard() {
   const account = useCurrentAccount();
   const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction();
+  const { mutate: disconnect } = useDisconnectWallet();
   
   const [analyzing, setAnalyzing] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
