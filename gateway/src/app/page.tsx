@@ -18,9 +18,6 @@ export default function Home() {
       {/* Hero Section */}
       <section style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '6rem 2rem', textAlign: 'center', background: 'var(--bg-color)' }}>
         <div style={{ maxWidth: '900px' }}>
-          <div className="neo-pill" style={{ display: 'inline-block', padding: '0.5rem 1.5rem', marginBottom: '2rem', fontSize: '1.1rem', fontWeight: 'bold', background: '#ffe4e6' }}>
-            🚀 The Agentic Web is Here
-          </div>
           <h1 style={{ fontSize: '6rem', lineHeight: '1', marginBottom: '2rem', textTransform: 'uppercase' }}>
             Prove Your <br />
             <span style={{ background: 'var(--blue)', color: '#fff', padding: '0 1rem', display: 'inline-block', transform: 'rotate(-2deg)' }}>Skills</span>
@@ -89,8 +86,71 @@ export default function Home() {
         </Link>
       </section>
 
-      <footer style={{ padding: '2rem', textAlign: 'center', borderTop: '4px solid #000', background: '#fff', fontWeight: 'bold' }}>
-        ZK-Work &copy; {new Date().getFullYear()}. Built for the Agentic Web on Sui.
+      <footer style={{ background: 'var(--blue)', color: '#000', padding: '5rem 2rem 2rem 2rem', borderTop: '4px solid #000', fontWeight: 'bold' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
+            {/* Product Column */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <h4 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#000', textTransform: 'uppercase', borderBottom: '3px solid #000', paddingBottom: '0.5rem', display: 'inline-block', width: 'fit-content' }}>Product</h4>
+              <Link href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                Quick Start
+              </Link>
+              <Link href="#how-it-works" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                How It Works
+              </Link>
+              <Link href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                SDK Reference
+              </Link>
+            </div>
+
+            {/* Docs Column */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <h4 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#000', textTransform: 'uppercase', borderBottom: '3px solid #000', paddingBottom: '0.5rem', display: 'inline-block', width: 'fit-content' }}>Docs</h4>
+              <Link href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                Backend API
+              </Link>
+              <Link href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                Environment
+              </Link>
+              <Link href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                Security
+              </Link>
+            </div>
+
+            {/* Community Column */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <h4 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#000', textTransform: 'uppercase', borderBottom: '3px solid #000', paddingBottom: '0.5rem', display: 'inline-block', width: 'fit-content' }}>Community</h4>
+              <a href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                GitHub
+              </a>
+              <a href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                The3rdWebLabs
+              </a>
+              <a href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                CYBWithFlourish
+              </a>
+            </div>
+
+            {/* Company Column */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <h4 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#000', textTransform: 'uppercase', borderBottom: '3px solid #000', paddingBottom: '0.5rem', display: 'inline-block', width: 'fit-content' }}>Company</h4>
+              <Link href="#" style={{ color: '#000', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem' }}>Developer Guide</Link>
+              <Link href="#" style={{ color: '#000', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem' }}>Hosted API</Link>
+              <Link href="#" style={{ color: '#000', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem' }}>All docs</Link>
+            </div>
+          </div>
+          
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', borderTop: '4px solid #000', paddingTop: '2.5rem', color: '#000', fontSize: '1rem', fontWeight: 'bold' }}>
+            <div>
+              Built for the Sui ecosystem &middot; GPL-3.0 &middot; &copy; {new Date().getFullYear()} ZK-Work
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', background: '#fff', padding: '0.5rem 1rem', border: '3px solid #000', boxShadow: '3px 3px 0px #000' }}>
+              Made by glitch3x
+            </div>
+          </div>
+
+        </div>
       </footer>
     </main>
   );
