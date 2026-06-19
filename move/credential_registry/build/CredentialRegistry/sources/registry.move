@@ -30,6 +30,7 @@ module credential_registry::registry {
         profile_picture_blob_id: vector<u8>,
         walrus_epochs: u64,
         reputation_score: u64,
+        level: String,
         skills: vector<String>
     }
 
@@ -78,13 +79,15 @@ module credential_registry::registry {
             string::utf8(b"description"),
             string::utf8(b"image_url"),
             string::utf8(b"project_url"),
+            string::utf8(b"level"),
         ];
 
         let passport_values = vector[
             string::utf8(b"{name}'s ZK-Work Passport"),
-            string::utf8(b"A portable Agentic Identity and Verifiable Credential Passport on Sui."),
+            string::utf8(b"Level: {level} | Reputation: {reputation_score} | A portable Agentic Identity and Verifiable Credential Passport on Sui."),
             string::utf8(b"https://api.dicebear.com/8.x/glass/svg?seed={id}&backgroundColor=0a0a0a"),
             string::utf8(b"https://zk-work.sui"),
+            string::utf8(b"{level}"),
         ];
 
         let mut passport_display = display::new_with_fields<Passport>(
@@ -150,6 +153,7 @@ module credential_registry::registry {
             profile_picture_blob_id,
             walrus_epochs,
             reputation_score: 0,
+            level: string::utf8(b"Novice"),
             skills: vector::empty<String>()
         };
         
@@ -159,6 +163,27 @@ module credential_registry::registry {
         });
 
         transfer::transfer(passport, sender);
+    }
+
+    /// Allows the AI Agent to mint a Passport and transfer it directly to a user (Gasless Onboarding)
+    public fun agent_create_passport(_: &AgentCap, name: String, profile_picture_blob_id: vector<u8>, walrus_epochs: u64, recipient: address, ctx: &mut TxContext) {
+        let passport = Passport {
+            id: object::new(ctx),
+            owner: recipient,
+            name,
+            profile_picture_blob_id,
+            walrus_epochs,
+            reputation_score: 0,
+            level: string::utf8(b"Novice"),
+            skills: vector::empty<String>()
+        };
+        
+        event::emit(PassportMinted {
+            passport_id: passport.id.to_inner(),
+            owner: recipient,
+        });
+
+        transfer::transfer(passport, recipient);
     }
 
     /// Allows the owner to update the on-chain lifetime record of the passport's profile picture
@@ -230,12 +255,30 @@ module credential_registry::registry {
         
         let mut i = 0;
         let len = credential.skill_tags.length();
+        let mut added_new_skills = false;
+        
         while (i < len) {
             let skill = credential.skill_tags[i];
             if (!passport.skills.contains(&skill)) {
                 passport.skills.push_back(skill);
+                added_new_skills = true;
             };
             i = i + 1;
+        };
+
+        // Level up logic
+        if (added_new_skills) {
+            passport.reputation_score = passport.reputation_score + 10;
+            
+            if (passport.reputation_score < 50) {
+                passport.level = string::utf8(b"Novice");
+            } else if (passport.reputation_score < 100) {
+                passport.level = string::utf8(b"Adept");
+            } else if (passport.reputation_score < 200) {
+                passport.level = string::utf8(b"Expert");
+            } else {
+                passport.level = string::utf8(b"Master");
+            };
         };
     }
 }

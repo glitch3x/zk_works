@@ -16,6 +16,8 @@ export default function CredentialDashboard() {
   const [minting, setMinting] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [pendingCredentials, setPendingCredentials] = useState<any>(null);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [creatingPassport, setCreatingPassport] = useState(false);
 
   // Fetch the user's Passport object
   const { data: ownedObjects, refetch } = useSuiClientQuery('getOwnedObjects', {
@@ -44,29 +46,34 @@ export default function CredentialDashboard() {
     ) || []
   };
 
-  const handleCreatePassport = () => {
+  const handleCreatePassport = async () => {
     if (!account) return;
+    setCreatingPassport(true);
     
-    const tx = new Transaction();
-    tx.moveCall({
-      target: `${PACKAGE_ID}::registry::create_passport`,
-      arguments: [
-        tx.pure.string(account.address.slice(0, 6) + " Agent"),
-        tx.pure.vector('u8', Array.from(new TextEncoder().encode("https://api.dicebear.com/7.x/bottts/svg?seed=" + account.address))),
-        tx.pure.u64(0)
-      ]
-    });
+    try {
+      const formData = new FormData();
+      formData.append('recipient', account.address);
+      formData.append('name', account.address.slice(0, 6) + " Agent");
+      if (avatarFile) formData.append('file', avatarFile);
 
-    signAndExecuteTransaction({ transaction: tx }, {
-      onSuccess: () => {
-        toast.success("Passport created! Waiting for network sync...");
-        refetch();
-      },
-      onError: (err) => {
-        console.error("Failed to create passport", err);
-        toast.error("Failed to create passport");
+      const response = await fetch('/api/create-passport', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        toast.success("Passport created successfully (Gasless)!");
+        setTimeout(() => refetch(), 2000);
+        setTimeout(() => refetch(), 5000);
+      } else {
+        throw new Error(data.error);
       }
-    });
+    } catch (err: any) {
+        toast.error("Failed to create passport: " + err.message);
+    } finally {
+        setCreatingPassport(false);
+    }
   };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,9 +155,15 @@ export default function CredentialDashboard() {
     return (
       <div className="neo-container" style={{ padding: '3rem', textAlign: 'center', border: '4px solid #000', borderRadius: '16px', background: '#fff' }}>
         <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>No ZK-Work Passport Found</h3>
-        <p style={{ marginBottom: '2rem' }}>You need an identity registry before agents can issue credentials to you.</p>
-        <button className="neo-btn neo-btn-blue" onClick={handleCreatePassport} style={{ padding: '0.75rem 2rem', fontSize: '1.1rem', fontWeight: 'bold' }}>
-          Create Passport
+        <p style={{ marginBottom: '2rem' }}>You need an identity registry before agents can issue credentials to you. Creating one is 100% free!</p>
+        
+        <div style={{ marginBottom: '2rem' }}>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Optional: Upload Profile Picture (Stored on Walrus)</label>
+            <input type="file" onChange={(e) => setAvatarFile(e.target.files?.[0] || null)} accept="image/*" style={{ border: '2px solid #000', padding: '0.5rem', borderRadius: '8px' }} />
+        </div>
+
+        <button className="neo-btn neo-btn-blue" onClick={handleCreatePassport} disabled={creatingPassport} style={{ padding: '0.75rem 2rem', fontSize: '1.1rem', fontWeight: 'bold' }}>
+          {creatingPassport ? "Minting Gasless Passport..." : "Create Passport"}
         </button>
       </div>
     );
@@ -165,12 +178,21 @@ export default function CredentialDashboard() {
           {(() => {
             const content = passport.data?.content as any;
             const bytes = content?.fields?.profile_picture_blob_id;
-            const imageUrl = bytes ? String.fromCharCode(...bytes) : "https://api.dicebear.com/7.x/bottts/svg?seed=fallback";
-            return <img src={imageUrl} alt="Avatar" style={{ width: '60px', height: '60px', borderRadius: '50%', border: '2px solid #000' }} />;
+            let imageUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${account.address}`;
+            if (bytes) {
+               const blobStr = String.fromCharCode(...bytes);
+               if (blobStr !== "unknown" && !blobStr.includes("dicebear")) {
+                   imageUrl = `https://aggregator.walrus-testnet.walrus.space/v1/${blobStr}`;
+               }
+            }
+            return <img src={imageUrl} alt="Avatar" style={{ width: '60px', height: '60px', borderRadius: '50%', border: '2px solid #000', objectFit: 'cover' }} />;
           })()}
           <div>
             <h3 style={{ fontSize: '1.5rem', margin: 0 }}>{((passport.data?.display?.data as any)?.name as string) || "Your Passport"}</h3>
-            <span style={{ fontSize: '0.9rem', color: '#555' }}>ID: {passport.data?.objectId?.slice(0,8)}...</span>
+            <span style={{ fontSize: '0.9rem', color: '#555', display: 'block' }}>ID: {passport.data?.objectId?.slice(0,8)}...</span>
+            <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--blue)', background: '#e0e7ff', padding: '0.1rem 0.4rem', borderRadius: '4px' }}>
+              Level: {((passport.data?.display?.data as any)?.level as string) || "Novice"}
+            </span>
           </div>
         </div>
       </div>

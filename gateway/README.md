@@ -17,6 +17,9 @@ Because we leverage the Sui blockchain, these credentials act as highly-composab
 ## 🔥 Key Features
 
 - **Agentic Backend Issuance:** Credentials aren't minted manually. Our Next.js backend securely holds an `AgentCap` and automatically signs programmable transaction blocks (PTBs) to issue credentials upon verifying user uploads.
+- **Gasless Onboarding (Sponsored Transactions):** Users don't need testnet SUI to get started. The Agent handles the gas fees for creating the Passport and transfers it directly to the user's wallet.
+- **Dynamic NFTs (Leveling Up):** Passports "level up" (Novice -> Adept -> Expert -> Master) dynamically inside the smart contract as users accumulate reputation from verified skills.
+- **Walrus Decentralized Storage:** Profile pictures and evidence documents are completely decentralized. Uploads are seamlessly stored on the Mysten Labs Walrus Protocol and the Blob IDs are permanently embedded in the on-chain NFTs.
 - **Move 2024 Smart Contracts:** Built using the latest Move 2024 compiler edition, utilizing advanced capability architecture (`AdminCap` and `AgentCap`) to strictly control credential issuance.
 - **Sui Display Standard (`sui::display`):** Passports and Verifiable Credentials aren't just raw data. They are fully configured with the Display standard to render beautifully as dynamic badges inside the user's Sui Wallet extension.
 - **Neo-Brutalism UI:** A world-class, premium user interface built with React and `@mysten/dapp-kit`.
@@ -61,10 +64,11 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 1. Navigate to the local dashboard.
 2. Connect your Sui Wallet (ensure you are on **Testnet**).
-3. If you do not have a Passport, click **Create Passport** and approve the transaction in your wallet.
+3. If you do not have a Passport, click **Create Passport** and upload an optional Profile Picture. The AI agent will pay the gas fee and mint your gasless passport, storing the avatar on Walrus!
 4. Upload a mock PDF or document into the "Upload Evidence" zone.
-5. Watch the Agent analyze the document and automatically drop a newly minted Verifiable Credential into your dashboard!
-6. Click **Share Profile** to copy your unique public link. Open it in an incognito window to view your beautiful public resume.
+5. Watch the Agent analyze the document, upload the original to Walrus, and automatically drop a newly minted Verifiable Credential into your dashboard!
+6. Click **Merge Skills to Passport** on your new credential. Watch your Passport level up dynamically as your reputation score increases!
+7. Click **Share Profile** to copy your unique public link. Open it in an incognito window to view your beautiful public resume.
 
 ---
 *Built with ❤️ for the Sui Ecosystem.*

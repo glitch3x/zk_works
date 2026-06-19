@@ -90,54 +90,23 @@ export default function Home() {
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
-            {/* Product Column */}
+            {/* Project Links */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <h4 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#000', textTransform: 'uppercase', borderBottom: '3px solid #000', paddingBottom: '0.5rem', display: 'inline-block', width: 'fit-content' }}>Product</h4>
-              <Link href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                Quick Start
+              <h4 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#000', textTransform: 'uppercase', borderBottom: '3px solid #000', paddingBottom: '0.5rem', display: 'inline-block', width: 'fit-content' }}>Project</h4>
+              <Link href="/dashboard" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+                Launch App
               </Link>
               <Link href="#how-it-works" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
                 How It Works
-              </Link>
-              <Link href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                SDK Reference
-              </Link>
-            </div>
-
-            {/* Docs Column */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <h4 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#000', textTransform: 'uppercase', borderBottom: '3px solid #000', paddingBottom: '0.5rem', display: 'inline-block', width: 'fit-content' }}>Docs</h4>
-              <Link href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                Backend API
-              </Link>
-              <Link href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                Environment
-              </Link>
-              <Link href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                Security
               </Link>
             </div>
 
             {/* Community Column */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <h4 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#000', textTransform: 'uppercase', borderBottom: '3px solid #000', paddingBottom: '0.5rem', display: 'inline-block', width: 'fit-content' }}>Community</h4>
-              <a href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
+              <a href="https://github.com/glitch3x/zk_works" target="_blank" rel="noopener noreferrer" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
                 GitHub
               </a>
-              <a href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                The3rdWebLabs
-              </a>
-              <a href="#" style={{ color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                CYBWithFlourish
-              </a>
-            </div>
-
-            {/* Company Column */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <h4 style={{ fontSize: '1.3rem', fontWeight: '900', color: '#000', textTransform: 'uppercase', borderBottom: '3px solid #000', paddingBottom: '0.5rem', display: 'inline-block', width: 'fit-content' }}>Company</h4>
-              <Link href="#" style={{ color: '#000', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem' }}>Developer Guide</Link>
-              <Link href="#" style={{ color: '#000', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem' }}>Hosted API</Link>
-              <Link href="#" style={{ color: '#000', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem' }}>All docs</Link>
             </div>
           </div>
           
