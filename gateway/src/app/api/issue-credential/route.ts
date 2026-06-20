@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 import { NextRequest, NextResponse } from 'next/server';
 import { Transaction } from "@mysten/sui/transactions";
 import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
@@ -115,7 +117,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, digest: result.digest });
 
   } catch (error: any) {
-    console.error("Agent Issuance Error:", error);
+    console.error("Agent Issuance Error:", error.stack || error);
     return NextResponse.json({ success: false, error: error.message });
   }
 }
